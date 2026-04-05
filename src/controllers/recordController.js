@@ -38,12 +38,12 @@ export const getRecords = async (req, res) => {
 
     // ✅ Category filter
     if (category) filter.category = category;
-    // category (case-insensitive)
+    // category (case-sensitive)
     if (category) {
     filter.category = { $regex: new RegExp(`^${category}$`, "i") };
     }
 
-    // ✅ DATE FILTER (🔥 main part)
+    // ✅ DATE FILTER 
     if (startDate || endDate) {
       filter.date = {};
 
@@ -53,7 +53,7 @@ export const getRecords = async (req, res) => {
 
       if (endDate) {
         const end = new Date(endDate);
-        end.setHours(23, 59, 59, 999); // include full day
+        end.setHours(23, 59, 59, 999); 
         filter.date.$lte = end;
       }
     }
