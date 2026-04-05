@@ -16,14 +16,47 @@ export const createRecord = async (req, res) => {
   }
 };
 
-// READ + FILTER + PAGINATION
+
+// READ + FILTER + PAGINATION + DATE FILTER ✅
 export const getRecords = async (req, res) => {
   try {
-    const { type, category, page = 1, limit = 10 } = req.query;
+    const {
+      type,
+      category,
+      startDate,
+      endDate,
+      page = 1,
+      limit = 10
+    } = req.query;
 
-    let filter = {};
+    let filter = {
+      createdBy: req.user.id   // 🔐 important
+    };
+
+    // ✅ Type filter
     if (type) filter.type = type;
+
+    // ✅ Category filter
     if (category) filter.category = category;
+    // category (case-insensitive)
+    if (category) {
+    filter.category = { $regex: new RegExp(`^${category}$`, "i") };
+    }
+
+    // ✅ DATE FILTER (🔥 main part)
+    if (startDate || endDate) {
+      filter.date = {};
+
+      if (startDate) {
+        filter.date.$gte = new Date(startDate);
+      }
+
+      if (endDate) {
+        const end = new Date(endDate);
+        end.setHours(23, 59, 59, 999); // include full day
+        filter.date.$lte = end;
+      }
+    }
 
     const records = await Record.find(filter)
       .skip((page - 1) * limit)
@@ -31,10 +64,12 @@ export const getRecords = async (req, res) => {
       .sort({ date: -1 });
 
     res.json(records);
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 // UPDATE
 export const updateRecord = async (req, res) => {
@@ -50,6 +85,7 @@ export const updateRecord = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 // DELETE
 export const deleteRecord = async (req, res) => {
