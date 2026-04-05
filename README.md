@@ -1,4 +1,4 @@
-# 💰 Finance Dashboard Backend API
+# 💰 Finance Dashboard 
 
 A scalable backend system built using **Node.js, Express, and MongoDB** to manage financial records with **role-based access control (RBAC)** and **dashboard analytics**.
 
@@ -120,7 +120,7 @@ src/
 
 ```bash
 git clone https://github.com/Swati07M/Finance_Dashboard.git
-cd finance Dashboard-Backend
+cd Finance_Dashboard\Backend
 ```
 
 ### 2️⃣ Install dependencies
