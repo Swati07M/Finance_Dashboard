@@ -8,7 +8,7 @@ export const verifyToken = (req, res, next) => {
     return res.status(401).json({ message: "No token provided" });
   }
 
-  // ✅ Remove "Bearer "
+  // Remove "Bearer "
   if (token.startsWith("Bearer ")) {
     token = token.split(" ")[1];
   }

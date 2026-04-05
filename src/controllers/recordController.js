@@ -2,11 +2,6 @@
 
 import Record from "../models/Record.js";
 
-//  Helper function to format date 
-const formatDate = (date) => {
-  return new Date(date).toISOString().split("T")[0];
-};
-
 // CREATE
 export const createRecord = async (req, res) => {
   try {

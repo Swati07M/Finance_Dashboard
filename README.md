@@ -120,8 +120,11 @@ src/
 
 ```bash
 git clone https://github.com/Swati07M/Finance_Dashboard.git
+<<<<<<< HEAD
 cd Finance_Dashboard\Backend
-```
+=======
+cd Finance_Dashboard-Backend
+
 
 ### 2️⃣ Install dependencies
 
